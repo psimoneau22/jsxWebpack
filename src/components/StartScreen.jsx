@@ -1,9 +1,12 @@
 define(["react"], function(React) {
     return React.createClass({           
         render: function(){
-            return  <div> 
-                        <div>Begin Game</div>
-                        <button onClick={this.props.onStart}>Start</button>
+            return  <div className="container-fluid"> 
+                        <div className="row" >
+                            <div className="col-xs-8 col-xs-offset-2">
+                                <button className="btn btn-success btn-block" onClick={this.props.onStart}>Start</button>
+                            </div>
+                        </div>
                     </div>
         }
     });

@@ -1,15 +1,15 @@
 define(["react"], function(React){
-        
+          
     return React.createClass({
         render: function(){
             
-            var pot = this.state.players.reduce(function(previous, current) {
-                return previous + current.value;
+            var pot = this.props.players.reduce(function(previous, current) {
+                return previous + current.handBet;
             }, 0);
             
             var playerResults = this.props.players.map(function(player){
-                var handResult = player.isWinner ? pot : -player.value;
-                return  <tr>
+                var handResult = player.isWinner ? pot - player.handBet : -player.handBet;
+                return  <tr key={player.name}>
                             <td>{player.name}</td>
                             <td>{handResult}</td>
                             <td>{player.total + handResult}</td>
@@ -17,8 +17,8 @@ define(["react"], function(React){
             });
             
             return  <div>
-                        <div>Results</div>
-                        <table>
+                        <h3>Results</h3>
+                        <table className="table table-striped table-hover">
                             <thead>
                                 <tr>
                                     <th>Player</th>
@@ -26,12 +26,12 @@ define(["react"], function(React){
                                     <th>Total</th>
                                 </tr>
                             </thead>
-                            <tbody>
+                            <tbody> 
                                 {playerResults}       
-                            </body>
+                            </tbody>
                         </table>
-                        <button onClick={this.props.onNextHand} >Next Hand</button>                        
-                    <div>   
+                        <button className="btn btn-success" onClick={this.props.onNextHand} >Next Hand</button>                        
+                    </div>   
         }
     });
 })
