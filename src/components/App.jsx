@@ -1,5 +1,5 @@
-define(["require", "react", "react-addons-update", "./StartScreen", "./AddPlayers", "./PlayerAction", "./SelectWinner", "./ShowResults"], 
-function(require, React, update, StartScreen, AddPlayers, PlayerAction, SelectWinner, ShowResults) {
+define(["require", "react", "react-addons-update", "./StartScreen", "./AddPlayers", "./PlayerAction", "./SelectWinner", "./ShowResults", "./Player"], 
+function(require, React, update, StartScreen, AddPlayers, PlayerAction, SelectWinner, ShowResults, Player) {
     
     var GameStatus = require("../enums").GameStatus;
     var HandStatus = require("../enums").HandStatus;
@@ -25,7 +25,10 @@ function(require, React, update, StartScreen, AddPlayers, PlayerAction, SelectWi
     }
     
     return React.createClass({
-    
+        shouldComponentUpdate: function(props, state) {
+            console.log("test");
+            return true;
+        },
         getInitialState: function() {
             return { 
                 gameStatus: GameStatus.Start,
@@ -183,6 +186,11 @@ function(require, React, update, StartScreen, AddPlayers, PlayerAction, SelectWi
             
             this.handleNextHand(true);
         },
+        testUpdateName: function() {
+            this.setState({
+                players: update(this.state.players, {1: {name: {$set: Date.now().toString()}}})
+            })    
+        },
         render: function(){
             
             var handTotal = 0;
@@ -193,6 +201,12 @@ function(require, React, update, StartScreen, AddPlayers, PlayerAction, SelectWi
             }, 0);
             
             return  <div>
+                        <button onClick={this.testUpdateName} > test</button>
+                        <ul>
+                            {this.state.players.map(function(player){
+                                return <Player key={player.name} player={player} />
+                            })}
+                        </ul>
                         {this.state.gameStatus == GameStatus.PlayerAction ? <h3>{this.state.handStatus} - Pot: ${handTotal}.00</h3> : null}
                         {this.state.gameStatus == GameStatus.Start ? <StartScreen onStart={this.handleStart} /> : null}
                         {this.state.gameStatus == GameStatus.AddPlayers ? <AddPlayers onDone={this.handlePlayersComplete} onPlayerAdded={this.handlePlayerAdded} players={this.state.players}/> : null}
