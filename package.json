@@ -8,7 +8,7 @@
     "url": "https://github.com/psimoneau22/jsxWebpack.git"
   },
   "scripts": {
-    "webpack": "webpack -p",
+    "build": "webpack -p",
     "dev": "webpack --watch -d --progress",
     "start": "start webpack -d --progress --watch"
   },
