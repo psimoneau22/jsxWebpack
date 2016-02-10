@@ -25,11 +25,6 @@ define(["react"], function (React) {
             Body: Body,
             Footer: Footer  
         },
-        handleClick: function(e){
-            if(this.props.isModal){
-                
-            }
-        },
 		render: function(){
 			var className = "modal fade";
 			var style = { display: "none", backgroundColor: "rgba(0,0,0,0.5)" };
@@ -54,7 +49,7 @@ define(["react"], function (React) {
                 }
             });            
 
-            return  <div className={className} style={style} onClick={this.handleClick} >
+            return  <div className={className} style={style}>
 				        <div className="modal-dialog" >
                             <div className="modal-content" >
                                 {header}
