@@ -1,6 +1,7 @@
 define(["require", "react", "react-addons-update", "./StartScreen", "./AddPlayers", "./PlayerAction", "./SelectWinner", "./ShowResults"], 
 function(require, React, update, StartScreen, AddPlayers, PlayerAction, SelectWinner, ShowResults) {
     
+    require("./../../css/App.css");
     var GameStatus = require("../enums").GameStatus;
     var HandStatus = require("../enums").HandStatus;
         
@@ -186,17 +187,17 @@ function(require, React, update, StartScreen, AddPlayers, PlayerAction, SelectWi
         render: function(){
             
             var handTotal = 0;
-            var cardTotal = 0;
+            var cardTotal = 0;            
+            
             this.state.players.forEach(function(player) {
                 handTotal += player.cardBet + player.handBet;
                 cardTotal += player.cardBet;
             }, 0);
             
-            return  <div>
-                        {this.state.gameStatus == GameStatus.PlayerAction ? <h3>{this.state.handStatus} - Pot: ${handTotal}.00</h3> : null}
+            return  <div className="jumbotron app">
                         {this.state.gameStatus == GameStatus.Start ? <StartScreen onStart={this.handleStart} /> : null}
                         {this.state.gameStatus == GameStatus.AddPlayers ? <AddPlayers onDone={this.handlePlayersComplete} onPlayerAdded={this.handlePlayerAdded} players={this.state.players}/> : null}
-                        {this.state.gameStatus == GameStatus.PlayerAction ? <PlayerAction player={this.state.players[this.state.playerIndex]} allowCheck={cardTotal == 0} onBet={this.handleBet} onCall={this.handleCall} onFold={this.handleFold} /> : null}
+                        {this.state.gameStatus == GameStatus.PlayerAction ? <PlayerAction player={this.state.players[this.state.playerIndex]} handStatus={this.state.handStatus} cardTotal={cardTotal} handTotal={handTotal} onBet={this.handleBet} onCall={this.handleCall} onFold={this.handleFold} /> : null}
                         {this.state.gameStatus == GameStatus.SelectWinner ? <SelectWinner players={this.state.players} onSelectedWinner={this.handleWinner} /> : null }
                         {this.state.gameStatus == GameStatus.ShowResults ? <ShowResults players={this.state.players} onNextHand={this.handleNextHand} /> : null }
                     </div>

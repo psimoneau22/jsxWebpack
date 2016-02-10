@@ -17,7 +17,7 @@ define(["react"], function(React){
             });
             
             return  <div>
-                        <h3>Results</h3>
+                        <h3 className="actionHeader">Results</h3>
                         <table className="table table-striped table-hover">
                             <thead>
                                 <tr>
@@ -30,7 +30,7 @@ define(["react"], function(React){
                                 {playerResults}       
                             </tbody>
                         </table>
-                        <button className="btn btn-success" onClick={this.props.onNextHand} >Next Hand</button>                        
+                        <button className="btn btn-block btn-lg btn-success" onClick={this.props.onNextHand} >Next Hand</button>                        
                     </div>   
         }
     });
